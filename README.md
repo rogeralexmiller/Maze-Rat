@@ -11,8 +11,9 @@ maze.
   can then solve that maze.
 
 ## Design Docs
-* [View Wireframes][docs/wireframes/Maze-Rat.png]
+![Maze-Rat]
 
+[Maze-Rat]: ./docs/wireframes/Maze-Rat.png
 ## Completion Timeline
 
 ### Phase 1: Maze Generation (1.5 days)
