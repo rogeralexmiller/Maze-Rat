@@ -1,0 +1,29 @@
+html body div {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: transparent;
+}
+
+.group:after{
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.grid{
+  width:1000px;
+  height: 1000px;
+  border: 1px solid black;
+}
+
+.cell{
+  float:left;
+  width: 1px;
+  background: yellow;
+  height: 1px;
+  border: 1px solid black;
+}
