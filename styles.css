@@ -8,22 +8,7 @@ html body div {
   background: transparent;
 }
 
-.group:after{
-  content: "";
-  display: block;
-  clear: both;
-}
-
-.grid{
-  width:1000px;
-  height: 1000px;
-  border: 1px solid black;
-}
-
-.cell{
-  float:left;
-  width: 1px;
-  background: yellow;
-  height: 1px;
-  border: 1px solid black;
+#grid{
+  margin: 300 auto;
+  position: relative;
 }

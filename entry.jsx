@@ -1,10 +1,11 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
 var Grid = require("./grid");
 
-document.addEventListener("DOMContentLoaded", function(){
-  var root = document.getElementById("content");
-  ReactDOM.render(
-    <Grid/>,
-    root);
-});
+window.canvasEl = document.getElementById("canvas");
+
+window.ctx = canvasEl.getContext("2d");
+
+grid = new Grid();
+
+grid.draw(ctx);
+
+grid.buildMaze(ctx);
