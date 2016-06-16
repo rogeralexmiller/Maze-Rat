@@ -9,6 +9,7 @@ function Cell(displayPos,gridCoords){
   this.parent = null;
   this.children = [];
   this.solvePath = false;
+  this.occupied = false;
 }
 
 Cell.WALL_COLOR = "black";
@@ -32,6 +33,7 @@ Cell.prototype.explore = function(){
 };
 
 Cell.prototype.draw = function(ctx){
+
   if (this.start) {
     ctx.fillStyle = "green";
     ctx.fillRect(this.displayPos[0],this.displayPos[1],this.width, this.width);
@@ -40,6 +42,12 @@ Cell.prototype.draw = function(ctx){
 
   if (this.end) {
     ctx.fillStyle = "red";
+    ctx.fillRect(this.displayPos[0],this.displayPos[1],this.width, this.width);
+    return;
+  }
+
+  if (this.occupied) {
+    ctx.fillStyle = "yellow";
     ctx.fillRect(this.displayPos[0],this.displayPos[1],this.width, this.width);
     return;
   }

@@ -1,12 +1,26 @@
 var Cell = require("./cell");
 
-function Grid() {
+function Grid(ctx) {
   this.DIM_Y = 501;
   this.DIM_X = 501;
   this.cells = [];
   this.addCells();
   this.startPos = [0, 49];
+  this.userPos = [0,49];
+  this.ctx = ctx;
 }
+
+Grid.prototype.updateUserPos = function(move){
+  var pos = this.userPos;
+  prevUserCell = this.getCell(pos);
+  prevUserCell.occupied = false;
+  prevUserCell.draw(this.ctx);
+
+  this.userPos = [pos[0]+move[0], pos[1]+move[1]];
+  var userCell = this.getCell(userPos);
+  userCell.occupied = true;
+  userCell.draw(this.ctx);
+};
 
 Grid.prototype.addCells = function(){
   this.cells = [];
@@ -63,6 +77,11 @@ Grid.prototype.hasValidNeighbors = function(pos, frontierPos) {
   var left = [pos[0],pos[1]-1];
   var right = [pos[0],pos[1]+1];
 
+  var upRight = [pos[0]-1, pos[1]+1];
+  var upLeft = [pos[0]-1, pos[1]-1];
+  var downRight = [pos[0]+1, pos[1]+1];
+  var downLeft = [pos[0]+1, pos[1]-1];
+
   var neighbors = [up,down,left,right];
 
   return neighbors.every(function(neighbor){
@@ -109,19 +128,21 @@ Grid.prototype.buildMaze = function(ctx) {
   var frontier = [];
   var startPos = this.startPos;
   var startCell = this.getCell(startPos);
+
   startCell.makePath();
   startCell.makeStart();
   startCell.draw(ctx);
+
   var grid = this;
+
   frontier.push(startPos);
   var lastPathCell = null;
+  
   var mazeIntervalId = setInterval(function(){
     if (frontier.length > 0) {
       var randomIdx = Math.floor(Math.random()*(frontier.length));
       var randomFrontier = frontier.splice(randomIdx, 1)[0];
-      // get random frontier cell's coordinates
-      // Expand frontier into any valid neighbors
-      //valid neighbor is one that doesn't have a neighbor other than the frontier cell that is also a path
+
       var newMoves = grid.getValidMoves(randomFrontier);
       if (newMoves) {
         for (var i = 0; i < newMoves.length; i++) {
@@ -165,8 +186,9 @@ Grid.prototype.getPathOptions = function(cell){
   return paths;
 };
 
-Grid.prototype.traceBackHome = function(cell, ctx){
+Grid.prototype.traceBackHome = function(cell, ctx, solveIntervalId){
   if (cell.start === true) {
+    clearInterval(solveIntervalId);
     return;
   } else {
     var parent = cell.parent;
@@ -196,16 +218,16 @@ Grid.prototype.solveMaze = function(ctx){
       move.explore();
       move.draw(ctx);
       if (move.end) {
-        grid.traceBackHome(move, ctx);
+        grid.traceBackHome(move, ctx, solveIntervalId);
         mazeSolved = true;
       } else {
         var pathOptions = grid.getPathOptions(move);
         moveQueue = moveQueue.concat(pathOptions);
       }
     } else {
-      clearInterval(solveIntervalId);
+      // clearInterval(solveIntervalId);
     }
-  },1);
+  }, 5);
 
 
 
