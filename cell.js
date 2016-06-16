@@ -1,5 +1,4 @@
-function Cell(pos, grid){
-  this.grid = grid;
+function Cell(pos){
   this.pos = pos;
   this.width = Cell.WIDTH;
   this.state = "wall";
