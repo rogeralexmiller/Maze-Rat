@@ -4,12 +4,25 @@
     <meta charset="utf-8">
     <title>Maze Rat</title>
     <link rel="stylesheet" type="text/css" href="./styles.css"/>
-
+    <script type="text/javascript" src="./jquery.min.js"></script>
   </head>
   <body>
     <div id="grid">
-      <canvas id="canvas" width="1000" height="1000"></canvas>
+      <canvas id="canvas" width="800" height="550"></canvas>
+      <button id="build-maze">Build maze</button>
+      <button id="solve-maze">Solve maze</button>
+
     </div>
     <script src="./bundle.js"></script>
+  <script>
+    $("#build-maze").click(function(){
+      grid.addCells(ctx);
+      grid.draw(ctx);
+      grid.buildMaze(ctx);
+    })
+    $("#solve-maze").click(function(){
+      grid.solveMaze(ctx);
+    })
+  </script>
   </body>
 </html>

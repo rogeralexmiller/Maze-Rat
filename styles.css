@@ -9,6 +9,6 @@ html body div {
 }
 
 #grid{
-  margin: 300 auto;
-  position: relative;
+  width: 500px;
+  margin: 100px auto;
 }

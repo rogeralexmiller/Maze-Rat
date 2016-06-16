@@ -18,20 +18,21 @@ maze.
 
 ### Phase 1: Maze Generation (1.5 days)
 
-- [ ] Create project
-- [ ] Set up React with webpack
-- [ ] Write pure javascript backend class representing grid with methods to change
-    the state of a blank cell to a wall, and to randomly pick an edge coordinate
-    to be the end.
-- [ ] Write grid react component to set up 20x20 grid on DOM
-- [ ] Write maze generator class to generate maze on the backend, which will trigger re-renders
-    on the DOM
-- [ ] Add button to trigger maze generation
+- [x] Create project
+- [x] Set up Project with webpack
+- [x] Write Grid class that stores cells
+- [x] Write Cell class that stores its display position and position in the grid
+- [x] Write maze building method for grid that builds a maze with the random step
+      algorithm and animates the process
+- [x] Add button to trigger maze generation
 
 ### Phase 2: Maze solving (1.5 days)
 
-- [ ] Write maze solver class for the backend, implementing breadth-first search.
-- [ ] Add styles to make visualizations more appealing.
+- [x] Write maze solving method for the grid class that uses breadth-first search
+      to find the end of the maze.
+- [x] Add state variables to the cell class to represent the start and end of the maze.
+- [x] Add state variables to the cell class to represent cells being explored and the shortest path.
+- [x] Add styling to make more visually appealing
 
 ### Bonus Features
 - Add depth-first search algorithm as a maze solving option
