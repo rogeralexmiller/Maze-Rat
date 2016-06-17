@@ -22,16 +22,38 @@ Grid.prototype.updateUserPos = function(move){
   userCell.draw(this.ctx);
 };
 
+Grid.prototype.getStartCell = function(){
+  return this.getCell(this.startPos);
+};
+
 Grid.prototype.addCells = function(){
   this.cells = [];
   for (var i = 0; i < 50 ; i++) {
     var row = [];
     for (var j = 0; j < 50; j++) {
-      var cell = new Cell([(i*10)+1,(j*10)+1],[i,j]);
+      var cell = new Cell([(i*10)+1,(j*10)+1],[i,j], this);
       row.push(cell);
     }
     this.cells.push(row);
   }
+};
+
+Grid.prototype.validPath = function(coords){
+  var cell = this.getCell(coords);
+  var parent = cell.parent ? cell.parent : {gridCoords:[-1,-1]};
+  var grandparent = parent.parent ? parent.parent : {gridCoords:[-1,-1]};
+  var neighbors = cell.getValidNeighbors();
+  for (var i = 0; i < neighbors.length; i++) {
+    var neighbor = neighbors[i];
+    if (neighbor.match(grandparent) || neighbor.match(parent)) {
+      //ignore relative neighbors
+    } else{
+      if (neighbor.state === "path") {
+        return false;
+      }
+    }
+  }
+  return true;
 };
 
 Grid.prototype.draw = function(ctx) {
@@ -44,7 +66,7 @@ Grid.prototype.draw = function(ctx) {
   });
 };
 
-var inBounds = function(coords) {
+Grid.prototype.inBounds = function(coords) {
   var row = coords[0];
   var col = coords[1];
   if (row >= 0 && row < 50 && col >= 0 && col < 50) {
@@ -54,112 +76,8 @@ var inBounds = function(coords) {
   }
 };
 
-
-
-Grid.prototype.validMove = function(coords, frontierPos){
-  //check if the move is in bounds, then check move's neighbors to see if any are path cells
-  if (inBounds(coords)) {
-    var cell = this.getCell(coords);
-    if (cell.state === "wall" && this.hasValidNeighbors(coords, frontierPos)) {
-      return true;
-    } else {
-      return false;
-    }
-  } else{
-    return false;
-  }
-};
-
-Grid.prototype.hasValidNeighbors = function(pos, frontierPos) {
-  var grid = this;
-  var up = [pos[0]-1,pos[1]];
-  var down = [pos[0]+1,pos[1]];
-  var left = [pos[0],pos[1]-1];
-  var right = [pos[0],pos[1]+1];
-
-  var upRight = [pos[0]-1, pos[1]+1];
-  var upLeft = [pos[0]-1, pos[1]-1];
-  var downRight = [pos[0]+1, pos[1]+1];
-  var downLeft = [pos[0]+1, pos[1]-1];
-
-  var neighbors = [up,down,left,right];
-
-  return neighbors.every(function(neighbor){
-    if (inBounds(neighbor)) {
-      var cell = grid.getCell(neighbor);
-      if (neighbor[0] === frontierPos[0] && neighbor[1] === frontierPos[1]) {
-        return true;
-      } else{
-        return cell.state !== "path";
-      }
-    } else {
-      return true;
-    }
-  });
-};
-
-Grid.prototype.getValidMoves = function(pos){
-  var grid = this;
-  //valid move is one that doesn't have a neighbor other than the frontier cell that is also a path
-  var up = [pos[0]-1,pos[1]];
-  var down = [pos[0]+1,pos[1]];
-  var left = [pos[0],pos[1]-1];
-  var right = [pos[0],pos[1]+1];
-
-  var moves = [up, down, left, right];
-
-  var validMoves =  moves.filter(function(move){
-    //for each move, first check if the move is in bounds, then check move's neighbors to see if any are path cells
-    return grid.validMove(move, pos);
-  });
-
-  if (validMoves.length > 0) {
-    return validMoves;
-  } else {
-    return null;
-  }
-};
-
 Grid.prototype.getCell = function(coords){
   return this.cells[coords[0]][coords[1]];
-};
-
-Grid.prototype.buildMaze = function(ctx) {
-  var frontier = [];
-  var startPos = this.startPos;
-  var startCell = this.getCell(startPos);
-
-  startCell.makePath();
-  startCell.makeStart();
-  startCell.draw(ctx);
-
-  var grid = this;
-
-  frontier.push(startPos);
-  var lastPathCell = null;
-  
-  var mazeIntervalId = setInterval(function(){
-    if (frontier.length > 0) {
-      var randomIdx = Math.floor(Math.random()*(frontier.length));
-      var randomFrontier = frontier.splice(randomIdx, 1)[0];
-
-      var newMoves = grid.getValidMoves(randomFrontier);
-      if (newMoves) {
-        for (var i = 0; i < newMoves.length; i++) {
-          var move = newMoves[i];
-          var cell = grid.getCell(move);
-          cell.makePath();
-          cell.draw(ctx);
-          frontier.push(move);
-          lastPathCell = cell;
-        }
-      }
-    } else{
-      clearInterval(mazeIntervalId);
-      lastPathCell.makeEnd();
-      lastPathCell.draw(ctx);
-    }
-  },1);
 };
 
 Grid.prototype.getPathOptions = function(cell){
@@ -175,7 +93,7 @@ Grid.prototype.getPathOptions = function(cell){
   var paths = [];
   for (var i = 0; i < options.length; i++) {
     var option = options[i];
-    if (inBounds(option)) {
+    if (this.inBounds(option)) {
       var optionCell = this.getCell(option);
       if (optionCell.state === "path" && optionCell.explored === false) {
         optionCell.parent = cell;
@@ -199,13 +117,6 @@ Grid.prototype.traceBackHome = function(cell, ctx, solveIntervalId){
 };
 
 Grid.prototype.solveMaze = function(ctx){
-  //begin at start.
-  // get valid moves.
-  // Loop through move options.
-    // move to a square. If it is the end, trace path back to beginning.
-    // if it is not, add all the possible moves into the optional moves queue.
-    // for each subsequent move, store the cell's parent and child.
-    // To trace back to the start from the end, just ask for each cells parent.
   var moveQueue = [];
   var startCell = this.getCell(this.startPos);
   var pathOptions = this.getPathOptions(startCell, this.startPos);
@@ -215,7 +126,7 @@ Grid.prototype.solveMaze = function(ctx){
   var solveIntervalId = setInterval(function(){
     if (moveQueue.length > 0 && mazeSolved === false) {
       var move = moveQueue.shift();
-      move.explore();
+      move.explored = true;
       move.draw(ctx);
       if (move.end) {
         grid.traceBackHome(move, ctx, solveIntervalId);
@@ -225,7 +136,7 @@ Grid.prototype.solveMaze = function(ctx){
         moveQueue = moveQueue.concat(pathOptions);
       }
     } else {
-      // clearInterval(solveIntervalId);
+      clearInterval(solveIntervalId);
     }
   }, 5);
 

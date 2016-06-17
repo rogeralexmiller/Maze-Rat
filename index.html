@@ -19,7 +19,7 @@
     $("#build-maze").click(function(){
       grid.addCells(ctx);
       grid.draw(ctx);
-      grid.buildMaze(ctx);
+      MazeBuilder.buildMaze(ctx);
     })
     $("#solve-maze").click(function(){
       grid.solveMaze(ctx);
