@@ -37,6 +37,9 @@ StarSolver.prototype.traceBackHome = function(cell){
   } else {
     var parent = cell.parent;
     parent.solvePath = false;
+    if (this.deadEnd(parent)){
+      parent.dead = true;
+    }
     parent.draw(this.ctx);
     this.traceBackHome(parent);
   }
@@ -108,7 +111,6 @@ StarSolver.prototype.solveMaze = function(){
     if (mazeSolved === false) {
       var currentCell = grid.getCell(solver.currentPos);
       if (currentCell.match(grid.end)) {
-        debugger;
         mazeSolved = true;
       } else{
         solver.chooseValidMove();
