@@ -17,7 +17,10 @@ MazeBuilder.prototype.buildMaze = function() {
   for (var i = 0; i < firstMoves.length; i++) {
     var move = firstMoves[i];
     var moveCell = grid.getCell(move);
+    startCell.children.push(moveCell);
     moveCell.parent = startCell;
+    moveCell.frontier = true;
+    moveCell.draw(ctx);
   }
 
   frontier = frontier.concat([[0,48],[1,49]]);
@@ -29,7 +32,7 @@ MazeBuilder.prototype.buildMaze = function() {
       var randomIdx = Math.floor(Math.random()*(frontier.length));
       var randomFrontier = frontier.splice(randomIdx, 1)[0];
       var frontierCell = grid.getCell(randomFrontier);
-      // debugger;
+      frontierCell.frontier = false;
       if (grid.validPath(randomFrontier)) {
         frontierCell.makePath();
         frontierCell.draw(ctx);
@@ -40,16 +43,26 @@ MazeBuilder.prototype.buildMaze = function() {
             var move = newMoves[i];
             var moveCell = grid.getCell(move);
             moveCell.parent = frontierCell;
+            frontierCell.children.push(moveCell);
+            moveCell.frontier = true;
+            moveCell.draw(ctx);
           }
-          // debugger;
           frontier = frontier.concat(newMoves);
+        } else{
+          var frontierChildren = frontierCell.children;
+          for (var j = 0; j < frontierChildren.length; j++) {
+            var child = frontierChildren[j];
+            child.frontier = false;
+          }
         }
       }
     } else{
       clearInterval(mazeIntervalId);
       lastPathCell.end = true;
+      grid.end = lastPathCell;
       lastPathCell.draw(ctx);
     }
   },1);
 };
+
 module.exports = MazeBuilder;

@@ -11,6 +11,8 @@ function Cell(displayPos,gridCoords, grid){
   this.solvePath = false;
   this.occupied = false;
   this.grid = grid;
+  this.frontier = false;
+  this.dead = false;
 }
 
 Cell.WALL_COLOR = "black";
@@ -30,6 +32,17 @@ Cell.DELTAS = {
 
 Cell.prototype.makePath = function(){
   this.state = "path";
+};
+
+Cell.prototype.isChild = function(cell){
+  var myChildren = this.children;
+  for (var i = 0; i < myChildren.length; i++) {
+    var child = myChildren[i];
+    if (child.match(cell)){
+      return true;
+    }
+  }
+  return false;
 };
 
 
@@ -122,8 +135,20 @@ Cell.prototype.getValidNeighbors = function(){
 
 Cell.prototype.draw = function(ctx){
 
+  // if (this.frontier) {
+  //   ctx.fillStyle = "red";
+  //   ctx.fillRect(this.displayPos[0],this.displayPos[1],this.width, this.width);
+  //   return;
+  // }
+
   if (this.start) {
-    ctx.fillStyle = "green";
+    ctx.fillStyle = "yellow";
+    ctx.fillRect(this.displayPos[0],this.displayPos[1],this.width, this.width);
+    return;
+  }
+
+  if (this.dead) {
+    ctx.fillStyle = "blue";
     ctx.fillRect(this.displayPos[0],this.displayPos[1],this.width, this.width);
     return;
   }
@@ -141,20 +166,20 @@ Cell.prototype.draw = function(ctx){
   }
 
   if (this.solvePath) {
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = "#ea5241";
     ctx.fillRect(this.displayPos[0],this.displayPos[1],this.width, this.width);
     return;
   }
 
   if (this.explored) {
-    ctx.fillStyle = "gray";
+    ctx.fillStyle = "#ccc";
     ctx.fillRect(this.displayPos[0],this.displayPos[1],this.width, this.width);
     return;
   }
 
   switch(this.state){
     case "wall":
-      ctx.fillStyle = "black";
+      ctx.fillStyle = "#01c14b";
       ctx.fillRect(this.displayPos[0],this.displayPos[1],this.width, this.width);
       break;
     case "path":

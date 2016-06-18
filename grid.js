@@ -1,13 +1,15 @@
 var Cell = require("./cell");
 
 function Grid(ctx) {
-  this.DIM_Y = 501;
-  this.DIM_X = 501;
+  this.DIM_Y = 510;
+  this.DIM_X = 510;
   this.cells = [];
   this.addCells();
   this.startPos = [0, 49];
+  this.startCell = this.getCell(this.startPos);
   this.userPos = [0,49];
   this.ctx = ctx;
+  this.end = null;
 }
 
 Grid.prototype.updateUserPos = function(move){
@@ -31,7 +33,7 @@ Grid.prototype.addCells = function(){
   for (var i = 0; i < 50 ; i++) {
     var row = [];
     for (var j = 0; j < 50; j++) {
-      var cell = new Cell([(i*10)+1,(j*10)+1],[i,j], this);
+      var cell = new Cell([(i*10)+15,(j*10)+15],[i,j], this);
       row.push(cell);
     }
     this.cells.push(row);
@@ -42,11 +44,13 @@ Grid.prototype.validPath = function(coords){
   var cell = this.getCell(coords);
   var parent = cell.parent ? cell.parent : {gridCoords:[-1,-1]};
   var grandparent = parent.parent ? parent.parent : {gridCoords:[-1,-1]};
+  var siblings = parent.children;
+
   var neighbors = cell.getValidNeighbors();
   for (var i = 0; i < neighbors.length; i++) {
     var neighbor = neighbors[i];
-    if (neighbor.match(grandparent) || neighbor.match(parent)) {
-      //ignore relative neighbors
+    if (neighbor.match(grandparent) || neighbor.match(parent) || parent.isChild(neighbor)) {
+      //ignore relative neighbors and siblings
     } else{
       if (neighbor.state === "path") {
         return false;
@@ -57,8 +61,8 @@ Grid.prototype.validPath = function(coords){
 };
 
 Grid.prototype.draw = function(ctx) {
-  ctx.fillStyle = "#FF0000";
-  ctx.strokeRect(0, 0, this.DIM_X, this.DIM_Y);
+  ctx.lineWidth = 10;
+  ctx.strokeRect(10, 10, this.DIM_X, this.DIM_Y);
   this.cells.forEach( function(row){
     row.forEach(function(cell){
       cell.draw(ctx);
@@ -139,9 +143,6 @@ Grid.prototype.solveMaze = function(ctx){
       clearInterval(solveIntervalId);
     }
   }, 5);
-
-
-
 };
 
 module.exports = Grid;

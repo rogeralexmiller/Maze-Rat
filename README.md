@@ -35,5 +35,6 @@ maze.
 - [x] Add styling to make more visually appealing
 
 ### Bonus Features
-- Add depth-first search algorithm as a maze solving option
-- Add my own naive algorithm for solving mazes
+- [x] Add depth-first search algorithm as a maze solving option
+- [ ] Add A* algorithm
+- [ ] Add algorithm racing
