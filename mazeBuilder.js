@@ -2,7 +2,7 @@ function MazeBuilder(grid){
   this.grid = grid;
 }
 
-MazeBuilder.prototype.buildMaze = function() {
+MazeBuilder.prototype.buildMaze = function(interval) {
   var frontier = [];
   var grid = this.grid;
   var startCell = grid.getStartCell();
@@ -62,7 +62,7 @@ MazeBuilder.prototype.buildMaze = function() {
       grid.end = lastPathCell;
       lastPathCell.draw(ctx);
     }
-  },1);
+  },interval);
 };
 
 module.exports = MazeBuilder;

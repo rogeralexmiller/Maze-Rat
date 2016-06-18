@@ -17,12 +17,13 @@ StarSolver.prototype.distanceToEnd = function(coords){
 };
 
 StarSolver.prototype.towardsEnd = function(coords){
-  return this.distanceToEnd(coords) < this.distancetoEnd(this.currentPos);
+  return this.distanceToEnd(coords) < this.distanceToEnd(this.currentPos);
 };
 
 StarSolver.prototype.getMoves = function(){
   var solver = this;
-  var moves = this.getPathOptions(this.currentPos);
+  var cell = this.grid.getCell(this.currentPos);
+  var moves = this.getPathOptions(cell);
 
   var bestMoves = moves.filter(function(move){
     return solver.towardsEnd(move.gridCoords);
@@ -41,38 +42,50 @@ StarSolver.prototype.traceBackHome = function(cell){
   }
 };
 
+StarSolver.prototype.deadEnd = function(cell){
+  var validPaths = this.getPathOptions(cell);
+  if (validPaths.length > 0){
+    return false;
+  } else{
+    return true;
+  }
+};
+
 StarSolver.prototype.chooseValidMove = function(){
-  if (!SolverUtil.deadEnd(this.currentPos)) {
-    var moves = this.getMoves();
-    var randomIdx = Math.floor(Math.random()*(moves.length));
-    var move = moves[randomIdx];
+  var cell = this.grid.getCell(this.currentPos);
+
+  if (!this.deadEnd(cell)) {
+    var moveCells = this.getMoves();
+    var randomIdx = Math.floor(Math.random()*(moveCells.length));
+    var moveCell = moveCells[randomIdx];
     var prevCell = this.grid.getCell(this.currentPos);
-    this.currentPos = move;
-    var moveCell = this.grid.getCell(move);
+    this.currentPos = moveCell.gridCoords;
+
     moveCell.parent = prevCell;
-    moveCell.SolvePath = true;
+    moveCell.solvePath = true;
     moveCell.draw(this.grid.ctx);
   } else {
+
     var currentCell = this.grid.getCell(this.currentPos);
     currentCell.solvePath = false;
     currentCell.dead = true;
     currentCell.draw(this.grid.ctx);
     this.currentPos = this.grid.startPos;
-    this.traceBackHome();
+    this.traceBackHome(currentCell);
   }
   return;
 };
 
 StarSolver.prototype.getPathOptions = function(cell){
+
   var grid = this.grid;
   var options = cell.getMoves();
-
   var paths = [];
   for (var i = 0; i < options.length; i++) {
     var option = options[i];
     if (grid.inBounds(option)) {
       var optionCell = grid.getCell(option);
-      if (optionCell.state === "path" && optionCell.dead === false) {
+      if (optionCell.state === "path" && optionCell.dead === false && optionCell.solvePath === false) {
         optionCell.parent = cell;
         paths.push(optionCell);
       }
@@ -84,7 +97,7 @@ StarSolver.prototype.getPathOptions = function(cell){
 StarSolver.prototype.solveMaze = function(){
   var grid = this.grid;
   var endPos = grid.end.gridCoords;
-  var currentPos = grid.startPos;
+  var currentPos = this.currentPos;
   var startCell = grid.startCell;
 
   var solver = this;
@@ -93,11 +106,13 @@ StarSolver.prototype.solveMaze = function(){
 
   var solveIntervalId = setInterval(function(){
     if (mazeSolved === false) {
-      var currentCell = this.grid.getCell(this.currentPos);
+      var currentCell = grid.getCell(solver.currentPos);
       if (currentCell.match(grid.end)) {
+        debugger;
         mazeSolved = true;
+      } else{
+        solver.chooseValidMove();
       }
-      solver.chooseValidMove();
 
     } else {
       clearInterval(solveIntervalId);

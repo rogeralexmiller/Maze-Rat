@@ -13,6 +13,7 @@ var SolverUtil = {
 
   getPathOptions: function(cell){
     var grid = cell.grid;
+
     var options = cell.getMoves();
 
     var paths = [];
@@ -27,11 +28,6 @@ var SolverUtil = {
       }
     }
     return paths;
-  },
-
-  deadEnd: function(cell){
-    var validPaths = SolverUtil.getPathOptions(cell);
-    return validPaths.length > 0 ? validPaths : false;
   },
 
   pathDistance: function(){
