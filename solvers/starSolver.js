@@ -100,11 +100,9 @@ StarSolver.prototype.getPathOptions = function(cell){
 StarSolver.prototype.solveMaze = function(){
   var grid = this.grid;
   var endPos = grid.end.gridCoords;
-  var currentPos = this.currentPos;
-  var startCell = grid.startCell;
+  this.currentPos = grid.startPos;
 
   var solver = this;
-
   var mazeSolved = false;
   var solveIntervalId = setInterval(function(){
     if (mazeSolved === false) {
