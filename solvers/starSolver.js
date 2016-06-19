@@ -1,4 +1,4 @@
-var SolverUtil = require("./utils/solverUtil");
+var SolverUtil = require("../utils/solverUtil");
 
 function StarSolver(grid){
   this.grid = grid;
@@ -106,7 +106,6 @@ StarSolver.prototype.solveMaze = function(){
   var solver = this;
 
   var mazeSolved = false;
-
   var solveIntervalId = setInterval(function(){
     if (mazeSolved === false) {
       var currentCell = grid.getCell(solver.currentPos);

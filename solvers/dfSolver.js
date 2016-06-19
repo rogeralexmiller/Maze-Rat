@@ -1,4 +1,4 @@
-var SolverUtil = require("./utils/solverUtil");
+var SolverUtil = require("../utils/solverUtil");
 
 function DfSolver(grid){
   this.grid = grid;
@@ -11,7 +11,7 @@ DfSolver.prototype.solveMaze = function(){
   var moveStack = [];
   var startCell = this.grid.getCell(grid.startPos);
 
-  var pathOptions = SolverUtil.getPathOptions(startCell);
+  var pathOptions = SolverUtil.getPathOptions(startCell, grid);
   var mazeSolved = false;
   moveStack = moveStack.concat(pathOptions);
   var solveIntervalId = setInterval(function(){
@@ -20,10 +20,10 @@ DfSolver.prototype.solveMaze = function(){
       move.explored = true;
       move.draw(ctx);
       if (move.end) {
-        SolverUtil.traceBackHome(move, ctx, solveIntervalId);
         mazeSolved = true;
+        SolverUtil.traceBackHome(move, ctx, solveIntervalId);
       } else {
-        var pathOptions = SolverUtil.getPathOptions(move);
+        var pathOptions = SolverUtil.getPathOptions(move, grid);
         moveStack = moveStack.concat(pathOptions);
       }
     } else {

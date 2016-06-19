@@ -6,7 +6,7 @@ function Grid(ctx) {
   this.cells = [];
   this.addCells();
   this.startPos = [0, 49];
-  this.startCell = this.getCell(this.startPos);
+  this.startCell = null;
   this.userPos = [0,49];
   this.ctx = ctx;
   this.end = null;
@@ -46,7 +46,7 @@ Grid.prototype.validPath = function(coords){
   var grandparent = parent.parent ? parent.parent : {gridCoords:[-1,-1]};
   var siblings = parent.children;
 
-  var neighbors = cell.getValidNeighbors();
+  var neighbors = cell.getValidNeighbors(this);
   for (var i = 0; i < neighbors.length; i++) {
     var neighbor = neighbors[i];
     if (neighbor.match(grandparent) || neighbor.match(parent) || parent.isChild(neighbor)) {

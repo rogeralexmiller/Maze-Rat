@@ -1,4 +1,4 @@
-var SolverUtil = require("./utils/solverUtil");
+var SolverUtil = require("../utils/solverUtil");
 
 function MazeSolver(grid){
   this.grid = grid;
@@ -11,11 +11,13 @@ MazeSolver.prototype.solveMaze = function(){
   var moveQueue = [];
   var startCell = this.grid.getCell(grid.startPos);
 
-  var pathOptions = SolverUtil.getPathOptions(startCell);
+  var pathOptions = SolverUtil.getPathOptions(startCell, grid);
   var mazeSolved = false;
   moveQueue = moveQueue.concat(pathOptions);
   var solveIntervalId = setInterval(function(){
     if (moveQueue.length > 0 && mazeSolved === false) {
+      if (moveQueue.length > 1000) {
+      }
       var move = moveQueue.shift();
       move.explored = true;
       move.draw(ctx);
@@ -23,13 +25,13 @@ MazeSolver.prototype.solveMaze = function(){
         SolverUtil.traceBackHome(move, ctx, solveIntervalId);
         mazeSolved = true;
       } else {
-        var pathOptions = SolverUtil.getPathOptions(move);
+        var pathOptions = SolverUtil.getPathOptions(move, grid);
         moveQueue = moveQueue.concat(pathOptions);
       }
     } else {
       clearInterval(solveIntervalId);
     }
-  }, 5);
+  }, 0);
 };
 
 module.exports = MazeSolver;

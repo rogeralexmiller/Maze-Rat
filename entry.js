@@ -1,9 +1,12 @@
 var Grid = require("./grid");
 var Game = require("./game");
-var MazeBuilder = require("./mazeBuilder");
-var MazeSolver = require("./mazeSolver");
-var DfSolver = require("./dfSolver");
-var StarSolver = require("./starSolver");
+
+var MazeBuilder = require("./builders/mazeBuilder");
+var StreetBuilder = require("./builders/streetBuilder");
+
+var MazeSolver = require("./solvers/mazeSolver");
+var DfSolver = require("./solvers/dfSolver");
+var StarSolver = require("./solvers/starSolver");
 
 window.canvasEl = document.getElementById("canvas");
 
@@ -14,6 +17,7 @@ window.grid = new Grid(ctx);
 window.game = new Game(grid, ctx);
 
 window.MazeBuilder = new MazeBuilder(grid);
+window.StreetBuilder = new StreetBuilder(grid);
 
 window.MazeSolver = new MazeSolver(grid);
 

@@ -74,7 +74,7 @@ Cell.prototype.validMove = function(moveCoords){
   if (moveCell.match(parent)) {
     return false;
   }
-  var neighbors = moveCell.getValidNeighbors();
+  var neighbors = moveCell.getValidNeighbors(this.grid);
   var valid = true;
   // loop through neighbors. if the neighbor is self or parent, ignor it's state. else, check if it is a path
   for (var i = 0; i < neighbors.length; i++) {
@@ -119,14 +119,14 @@ Cell.prototype.getNeighbors = function(){
   return neighbors;
 };
 
-Cell.prototype.getValidNeighbors = function(){
+Cell.prototype.getValidNeighbors = function(grid){
   var neighbors = this.getNeighbors();
   var validNeighbors = [];
 
   for (var i = 0; i < neighbors.length; i++) {
     var neighbor = neighbors[i];
-    if (this.grid.inBounds(neighbor)) {
-      var neighborCell = this.grid.getCell(neighbor);
+    if (grid.inBounds(neighbor)) {
+      var neighborCell = grid.getCell(neighbor);
       validNeighbors.push(neighborCell);
     }
   }

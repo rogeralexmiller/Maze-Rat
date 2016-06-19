@@ -11,8 +11,7 @@ var SolverUtil = {
     }
   },
 
-  getPathOptions: function(cell){
-    var grid = cell.grid;
+  getPathOptions: function(cell, grid){
 
     var options = cell.getMoves();
 
