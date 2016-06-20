@@ -3,13 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title>Maze Rat</title>
-    <link rel="stylesheet" type="text/css" href="./styles/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="./assets/styles/styles.css"/>
     <script type="text/javascript" src="./vendor/jquery.min.js"></script>
   </head>
   <body>
-    <div class="header">
-      <h1 class="title"> Maze Rat </h1>
-      <p class="sub-header"> See how various algorithms generate and solve mazes </p>
+    <div class="header group">
+      <div class="title-header">
+        <h1 class="title"> Maze Rat </h1>
+        <p class="sub-header"> See how various algorithms generate and solve mazes </p>
+        <p class="byline"> Built by Roger Miller </p>
+      </div>
+
+      <div class="portfolios group">
+        <a class="logo" href="https://github.com/rogeralexmiller" target="_blank">
+          <img src="./assets/images/GitHub-Mark-32px.png"/>
+        </a>
+        <a class="logo" id="linkedin" href="https://www.linkedin.com/in/roger-miller-104ba66b" target="_blank">
+          <img src="./assets/images/In-Black-34px-R.png"/>
+        </a>
+      </div>
     </div>
     <div id="grid" class="group">
       <canvas id="canvas" width="800" height="550"></canvas>
