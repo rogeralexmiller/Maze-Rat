@@ -1,0 +1,64 @@
+html body div h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: transparent;
+}
+
+body{
+  font-family: arial;
+}
+
+h2{
+  text-align: center;
+}
+
+.group:after{
+  content: "";
+  display: block;
+  clear: both;
+}
+
+#grid{
+  width: 500px;
+  margin: 25px auto;
+}
+
+#builders{
+  width:250px;
+  float: left;
+}
+
+#solvers{
+  width:250px;
+  float: right;
+}
+
+#grid button{
+  padding: 7px;
+  margin: 3px;
+  background: white;
+  font-weight: bold;
+  border: 1px solid black;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+#grid button:hover{
+  background: #00e229;
+  color: white;
+  border: 1px solid black;
+}
+
+.header{
+  text-align: center;
+}
+
+.button-menu{
+  width: 540px;
+  margin: 0 auto;
+}
