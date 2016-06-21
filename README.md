@@ -85,9 +85,9 @@ A* (A-star) is an algorithm that is markedly different than depth or breadth-fir
 At each step, the algorithm sends out an exploratory probe and finds all possible valid moves it can make, then calculates how close each of those moves are to the end, and prioritizes those moves that bring it the closest. If the exploring probe gets to a dead end, where it has no choice but to backtrack, it traces its way back home and fills in any cells that are along that dead-end route.
 
 ```
-starSolver.js
+RogerSolver.js
 
-StarSolver.prototype.distanceToEnd = function(coords){
+RogerSolver.prototype.distanceToEnd = function(coords){
   var endPos = this.grid.end.gridCoords;
   var row1 = coords[0];
   var row2 = endPos[0];
@@ -97,7 +97,7 @@ StarSolver.prototype.distanceToEnd = function(coords){
   return Math.pow(Math.pow((row2 - row1),2) + Math.pow((col2 - col1),2),0.5);
 };
 
-StarSolver.prototype.towardsEnd = function(coords){
+RogerSolver.prototype.towardsEnd = function(coords){
   return this.distanceToEnd(coords) < this.distanceToEnd(this.currentPos);
 };
 ```
