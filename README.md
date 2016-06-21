@@ -30,7 +30,7 @@ Grid.prototype.validPath = function(coords){
     var neighbor = neighbors[i];
     if (neighbor.match(grandparent) || neighbor.match(parent) || parent.isChild(neighbor)) {
     } else{
-      if (neighbor.state === "path") {
+      if (neighbor.state.type=== "path") {
         return false;
       }
     }
@@ -57,7 +57,7 @@ A breadth-first search solves a maze by keeping a queue (first in, first out) of
 utils/SolverUtil.js
 
 traceBackHome: function(cell, ctx, solveIntervalId){
-  if (cell.start === true) {
+  if (cell.state.start === true) {
     clearInterval(solveIntervalId);
     return;
   } else {
