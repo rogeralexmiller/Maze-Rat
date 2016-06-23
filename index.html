@@ -8,12 +8,6 @@
   </head>
   <body>
     <div class="header group">
-      <div class="title-header">
-        <h1 class="title"> Maze Rat </h1>
-        <p class="sub-header"> See how various algorithms generate and solve mazes </p>
-        <p class="byline"> Built by Roger Miller </p>
-      </div>
-
       <div class="portfolios group">
         <a class="logo" href="https://github.com/rogeralexmiller" target="_blank">
           <img src="./assets/images/GitHub-Mark-32px.png"/>
@@ -22,22 +16,28 @@
           <img src="./assets/images/In-Black-34px-R.png"/>
         </a>
       </div>
+
+      <div class="title-header">
+        <h1 class="title"> Maze Rat </h1>
+        <p class="sub-header"> See how various algorithms generate and solve mazes </p>
+      </div>
+      <p class="byline"> By <a href="https://rogeralexmiller.github.io/" target="_blank"> Roger Miller </a></p>
     </div>
     <div id="grid" class="group">
+      <div id="builders">
+        <h2> </h2>
+        <button id="build-maze">Visualize Maze Build</button>
+        <button id="fast-maze">Fast maze</button>
+        <button id="build-street">Street Grid</button>
+      </div>
       <canvas id="canvas" width="800" height="550"></canvas>
       <div class="button-menu group">
-        <div id="builders">
-          <h2> Maze Builders </h2>
-          <button id="build-maze">Build maze</button>
-          <button id="fast-maze">Fast maze</button>
-          <button id="build-street">Build Street Grid</button>
-        </div>
 
         <div id="solvers">
-          <h2> Maze Solvers </h2>
           <button id="solve-maze">Breadth First</button>
           <button id="depth-first">Depth First</button>
           <button id="roger">RogerSolver</button>
+          <h2> Maze Solvers </h2>
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-html, body, div, h1, h2, p, a{
+html, body, div, h1, h2, p, canvas, a{
   margin: 0;
   padding: 0;
   border: 0;
@@ -6,6 +6,7 @@ html, body, div, h1, h2, p, a{
   font-size: inherit;
   color: inherit;
   background: transparent;
+  text-decoration: inherit;
 }
 
 ul{
@@ -42,17 +43,19 @@ h2{
 }
 
 #builders{
-  width:250px;
-  float: left;
+  width:525px;
+  text-align: center;
 }
 
 #solvers{
-  width:250px;
-  float: right;
+  width:525px;
+  text-align:center;
+  position:relative;
+  top:-33px;
 }
 
 #grid button{
-  padding: 7px;
+  padding: 4px;
   margin: 3px;
   background: white;
   font-weight: bold;
@@ -60,6 +63,12 @@ h2{
   cursor: pointer;
   border-radius: 3px;
   font-size: 12px;
+}
+
+#builders button{
+  position: relative;
+  top: 6px;
+  margin-bottom:0;
 }
 
 #grid button:hover{
@@ -73,8 +82,8 @@ h2{
 }
 
 .title-header{
-  float:right;
-  margin-right:420px;
+  float:left;
+  margin-left:325px;
 }
 .title-header h1{
   font-size:36px;
@@ -104,4 +113,16 @@ h2{
 
 .byline{
   font-weight: bold;
+  float: right;
+  margin: 20px;
+}
+
+.byline a{
+  display: inline;
+  cursor: pointer;
+}
+
+.byline a:hover{
+  color: blue;
+  text-decoration: underline;
 }
