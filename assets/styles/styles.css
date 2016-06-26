@@ -51,7 +51,7 @@ h2{
   width:525px;
   text-align:center;
   position:relative;
-  top:-33px;
+  top:-25px;
 }
 
 #grid button{
@@ -81,10 +81,6 @@ h2{
   text-align: center;
 }
 
-.title-header{
-  float:left;
-  margin-left:325px;
-}
 .title-header h1{
   font-size:36px;
 }
@@ -95,7 +91,7 @@ h2{
 }
 
 .portfolios{
-  float:left;
+  position: absolute;
   width: 150px;
 }
 
@@ -113,8 +109,10 @@ h2{
 
 .byline{
   font-weight: bold;
-  float: right;
+  position: absolute;
+  left: 80%;
   margin: 20px;
+  top: 0;
 }
 
 .byline a{
