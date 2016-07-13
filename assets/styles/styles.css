@@ -38,8 +38,12 @@ h2{
 }
 
 #grid{
-  width: 500px;
+  width: 600px;
   margin: 0 auto;
+}
+
+#canvas{
+  float:left;
 }
 
 #builders{
@@ -88,6 +92,7 @@ h2{
 .button-menu{
   width: 540px;
   margin: 0 auto;
+  float: left;
 }
 
 .portfolios{
@@ -123,4 +128,31 @@ h2{
 .byline a:hover{
   color: blue;
   text-decoration: underline;
+}
+
+.scale{
+  width:50px;
+  height: 50px;
+  float: right;
+  text-align: center;
+  font-weight: bold;
+}
+
+#scale1{
+  background: #a43cd8;
+}
+#scale2{
+  background: #7F244D;
+}
+#scale3{
+  background: #FF7A3D;
+}
+#scale4{
+  background: #FFD92E;
+}
+#scale5{
+  background: #26E5CE;
+}
+#scale6{
+  background: #5FA0F3;
 }

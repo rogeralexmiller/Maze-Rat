@@ -32,24 +32,31 @@
     <div id="grid" class="group">
       <div id="builders">
         <h2> </h2>
-        <button id="build-maze">Animate random-step</button>
-        <button id="fast-maze">Fast random-step maze</button>
+        <button id="build-maze">Random-Step</button>
+        <button id="fast-maze">Fast Maze</button>
         <button id="build-street">Street Grid</button>
-        <button id="df-builder">Animate depth-first</button>
+        <button id="df-builder">Depth-First</button>
         <button id="dijkstra-test">Dijkstra Test</button>
       </div>
-      <canvas id="canvas" width="800" height="550"></canvas>
-      <div class="button-menu group">
+      <canvas id="canvas" width="550" height="550"></canvas>
+      <div id="scale6" class="scale">100+</div>
+      <div id="scale5" class="scale">80-100</div>
+      <div id="scale4" class="scale">60-80</div>
+      <div id="scale3" class="scale">40-60</div>
+      <div id="scale2" class="scale">20-40</div>
+      <div id="scale1" class="scale">0-20</div>
 
+      <div class="button-menu group">
         <div id="solvers">
           <button id="solve-maze">Breadth First</button>
           <button id="depth-first">Depth First</button>
           <button id="roger">RogerSolver</button>
+          <button id="dijkstra-solver">DijkstraSolver</button>
           <h2> Maze Solvers </h2>
         </div>
       </div>
-
     </div>
+
     <script src="./bundle.js"></script>
 
   </script>
