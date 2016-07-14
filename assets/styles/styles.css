@@ -38,7 +38,7 @@ h2{
 }
 
 #grid{
-  width: 600px;
+  width: 760px;
   margin: 0 auto;
 }
 
@@ -47,7 +47,7 @@ h2{
 }
 
 #builders{
-  width:525px;
+  width:760px;
   text-align: center;
 }
 
@@ -155,4 +155,18 @@ h2{
 }
 #scale6{
   background: #5FA0F3;
+}
+
+.stats{
+  float: left;
+}
+
+.stats p{
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.legend{
+  float:right;
+  width: 60px;
 }

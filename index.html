@@ -24,10 +24,6 @@
       </div>
       <p class="byline"> By <a href="https://rogeralexmiller.github.io/" target="_blank"> Roger Miller </a></p>
     </div>
-    <div class="stats">
-      <h3></h3>
-      <p></p>
-    </div>
 
     <div id="grid" class="group">
       <div id="builders">
@@ -38,23 +34,41 @@
         <button id="df-builder">Depth-First</button>
         <button id="dijkstra-test">Dijkstra Test</button>
       </div>
+
+      <div class="stats">
+        <h3>Solver Stats</h3>
+        <p>Breadth-First</p>
+        <p id="bf-time"> Time: </p>
+        <p>Depth-First:</p>
+        <p id="df-time"> Time: </p>
+        <p>RogerSolver:</p>
+        <p id="roger-time"> Time: </p>
+        <p>Dijkstra's Solver:</p>
+        <p id="dijkstra-time"> Time: </p>
+      </div>
+
       <canvas id="canvas" width="550" height="550"></canvas>
-      <div id="scale6" class="scale">100+</div>
-      <div id="scale5" class="scale">80-100</div>
-      <div id="scale4" class="scale">60-80</div>
-      <div id="scale3" class="scale">40-60</div>
-      <div id="scale2" class="scale">20-40</div>
-      <div id="scale1" class="scale">0-20</div>
+
+      <div id="legend" class="group">
+        <p class = "scale"> Maze Depth</p>
+        <div id="scale6" class="scale">100+</div>
+        <div id="scale5" class="scale">80-100</div>
+        <div id="scale4" class="scale">60-80</div>
+        <div id="scale3" class="scale">40-60</div>
+        <div id="scale2" class="scale">20-40</div>
+        <div id="scale1" class="scale">0-20</div>
+      </div>
 
       <div class="button-menu group">
         <div id="solvers">
           <button id="solve-maze">Breadth First</button>
           <button id="depth-first">Depth First</button>
           <button id="roger">RogerSolver</button>
-          <button id="dijkstra-solver">DijkstraSolver</button>
+          <button id="dijkstra-solver">Dijkstra's Solver</button>
           <h2> Maze Solvers </h2>
         </div>
       </div>
+
     </div>
 
     <script src="./bundle.js"></script>
