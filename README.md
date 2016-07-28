@@ -59,7 +59,7 @@ A breadth-first search solves a maze by keeping a queue (first in, first out) of
 ```
 utils/SolverUtil.js
 
-traceBackHome: function(cell, ctx, solveIntervalId){
+traceBackHome: function(cell, solver){
   if (cell.state.start === true) {
     clearInterval(solveIntervalId);
     return;
@@ -67,7 +67,7 @@ traceBackHome: function(cell, ctx, solveIntervalId){
     var parent = cell.parent;
     parent.solvePath = true;
     parent.draw(ctx);
-    SolverUtil.traceBackHome(parent, ctx);
+    SolverUtil.traceBackHome(parent, solver);
   }
 }
 ...
