@@ -37,24 +37,32 @@
 
       <div class="stats">
         <h3>Solver Stats</h3>
-        <p>Breadth-First</p>
-          <p id="bf-time"> Time: 0</p>
-          <p id="bf-distance"> Distance: 0</p>
-        <p>Depth-First:</p>
-          <p id="df-time"> Time: 0</p>
-          <p id="df-distance"> Distance: 0</p>
-        <p>RogerSolver:</p>
-          <p id="roger-time"> Time: 0</p>
-          <p id="roger-distance"> Distance: 0</p>
-        <p>Dijkstra's Solver:</p>
-          <p id="dijkstra-time"> Time: 0</p>
-          <p id="dijkstra-distance"> Distance: 0</p>
+        <div class="stat-box group">
+          <p>Breadth-First</p>
+          <p class="stat" id="bf-time"> Time: 0</p>
+          <p class="stat" id="bf-distance"> Distance: 0</p>
+        </div>
+        <div class="stat-box group">
+          <p>Depth-First:</p>
+          <p class="stat" id="df-time"> Time: 0</p>
+          <p class="stat" id="df-distance"> Distance: 0</p>
+        </div>
+        <div class="stat-box group">
+          <p>RogerSolver:</p>
+          <p class="stat" id="roger-time"> Time: 0</p>
+          <p class="stat" id="roger-distance"> Distance: 0</p>
+        </div>
+        <div class="stat-box group">
+          <p>Dijkstra's:</p>
+          <p class="stat" id="dijkstra-time"> Time: 0</p>
+          <p class="stat" id="dijkstra-distance"> Distance: 0</p>
+        </div>
       </div>
 
       <canvas id="canvas" width="550" height="550"></canvas>
 
       <div id="legend" class="group">
-        <p class = "scale"> Maze Depth</p>
+        <h3 class = "scale scale-title"> Maze Depth</h3>
         <div id="scale6" class="scale">100+</div>
         <div id="scale5" class="scale">80-100</div>
         <div id="scale4" class="scale">60-80</div>

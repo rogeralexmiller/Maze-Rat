@@ -1,4 +1,4 @@
-html, body, div, h1, h2, p, canvas, a{
+html, body, div, h1, h2,  p, canvas, a{
   margin: 0;
   padding: 0;
   border: 0;
@@ -38,7 +38,7 @@ h2{
 }
 
 #grid{
-  width: 760px;
+  width: 720px;
   margin: 0 auto;
 }
 
@@ -130,10 +130,15 @@ h2{
   text-decoration: underline;
 }
 
+#legend{
+  width: 50px;
+  float: right;
+}
+
 .scale{
   width:50px;
   height: 50px;
-  float: right;
+  float: left;
   text-align: center;
   font-weight: bold;
 }
@@ -157,13 +162,31 @@ h2{
   background: #5FA0F3;
 }
 
-.stats{
-  float: left;
+.scale-title{
+  width:104px;
+  margin:0;
 }
 
-.stats p{
+.stats{
+  float: left;
+  margin-right:10px;
+}
+.stats h3{
+  margin-top: 0;
+}
+
+.stats{
   font-weight: bold;
   margin-bottom: 5px;
+}
+
+.stat-box{
+  width: 110px;
+}
+.stat{
+  font-weight: normal;
+  float: right;
+  width:100px;
 }
 
 .legend{
