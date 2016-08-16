@@ -103,39 +103,6 @@ RogerSolver.prototype.traceBackToFork = function(){
 ...
 ```
 
-## DijkstraSolver
-
-DijkstraSolver is based, of course, on Dijkstra's algorithm that solves mazes by creating a shortest-path tree starting with the root, or starting node of a graph. The steps the algorithm takes are as follows:
-1. Begin at the starting cell or node. Set the nodes distance from the start to zero.
-2. Get each of the current node's valid neighbors and set their distance from the starting node as the current node's distance + 1 if that value is less than the nodes current distance. After all of its unexplored neighbors have had their distances updated, mark the node as explored. Any nodes that had their distance values updated should be set as the children of the current node.
-3. Find the unexplored node with the lowest distance from the start. This operation is optimized, in this case, with a min-priority queue. Set the current node as this node and repeat from step 2 until the current node is the end node.
-4. Once the end node is located, trace a path through the nodes parents to the root node.
-
-```
-DijkstraSolver.js
-
-DijkstraSolver.prototype.updateNeighbors = function(){
-  var neighbors = this.getPathOptions(this.currentCell);
-  for (var i = 0; i < neighbors.length; i++) {
-    var neighbor = neighbors[i];
-    if (neighbor.distance) {
-      if (this.currentCell.distance + 1 < neighbor.distance) {
-        this.updateHeap(neighbor);
-      }
-    } else{
-      neighbor.distance = this.currentCell.distance + 1;
-      neighbor.parent = this.currentCell;
-      this.heapInsert(neighbor);
-    }
-  }
-};
-```
-
-## Dijkstra's Test
-
-To test the effectiveness of my implementation of Dijkstra's algorithm, I created a simple
-graph with a single L-shaped wall.
-
 ## A*
 
 A* is a pathfinding algorithm based on Dijkstra's but improves upon it by using a heuristic
@@ -150,6 +117,11 @@ Watching the algorithm find a shortest path on the Dijkstra's test graph reveals
 how this subtle change effects the behavior of the algorithm. Rather than exploring
 the maze as wide as possible, A* favors first exploring nodes that are closest to
 the end node of the graph.
+
+## A* Test
+
+To test the effectiveness of my implementation of the A* algorithm, I created a simple
+graph with a single L-shaped wall.
 
 ## Street Tested
 
