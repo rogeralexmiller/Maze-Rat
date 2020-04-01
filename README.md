@@ -1,7 +1,7 @@
 # Maze Rat
 
 [Maze Rat live][rogercodes]
-[rogercodes]: http://rogercodes.com/maze-rat
+[rogercodes]: http://www.rogeramiller.com/mazes
 
 Maze Rat is a series of visualizations built with JavaScript and HTML5 Canvas that are designed to illustrate the power of algorithms that build and solve mazes.
 
